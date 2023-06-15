@@ -14,4 +14,7 @@ To allow the Stream Deck to send commands to the server, you will need to instal
 - if you not sure about the options, you can run the script with the argument ```-h``` to see the help. example:
 ``` main.py -h```
 
+## Run with vbScript
+- ```cscript run.vbs [Tv number] [Options number]```
+
 
