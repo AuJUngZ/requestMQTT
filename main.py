@@ -1,4 +1,5 @@
 import argparse
+
 from paho.mqtt.client import Client
 
 # define an argument options
@@ -18,31 +19,36 @@ parser.add_argument('-op', '--options', help=option_help, required=True)
 args = parser.parse_args()
 
 # MQTT
-mqtt_host = "broker.emqx.io"
+mqtt_host = "<broker-mqtt>"
+
+
+prefix_topic = "TLIC/MeetingLauncher/activeroom1/tv{}"
 
 
 def execute_command():
     tv_number = args.TvNumber
     option = args.options
     if option == '1':
-        mqttc.publish("tv/{}".format(tv_number if tv_number != "ALL" else "ALL"), "toggle")
+        mqttc.publish(prefix_topic.format(tv_number if tv_number != "all" else "all"), "toggle")
     elif option == '2':
-        mqttc.publish("tv/{}".format(tv_number if tv_number != "ALL" else "ALL"), "vol_up")
+        mqttc.publish(prefix_topic.format(tv_number if tv_number != "all" else "all"), "vol_up")
     elif option == '3':
-        mqttc.publish("tv/{}".format(tv_number if tv_number != "ALL" else "ALL"), "vol_down")
+        mqttc.publish(prefix_topic.format(tv_number if tv_number != "all" else "all"), "vol_down")
     elif option == '4':
-        mqttc.publish("tv/{}".format(tv_number if tv_number != "ALL" else "ALL"), "mute")
+        mqttc.publish(prefix_topic.format(tv_number if tv_number != "all" else "all"), "mute")
     elif option == '5':
-        mqttc.publish("tv/{}".format(tv_number if tv_number != "ALL" else "ALL"), "hdmi1")
+        mqttc.publish(prefix_topic.format(tv_number if tv_number != "all" else "all"), "hdmi1")
     elif option == '6':
-        mqttc.publish("tv/{}".format(tv_number if tv_number != "ALL" else "ALL"), "hdmi2")
+        mqttc.publish(prefix_topic.format(tv_number if tv_number != "all" else "all"), "hdmi2")
     elif option == '7':
-        mqttc.publish("tv/{}".format(tv_number if tv_number != "ALL" else "ALL"), "hdmi3")
+        mqttc.publish(prefix_topic.format(tv_number if tv_number != "all" else "all"), "hdmi3")
     elif option == '8':
-        mqttc.publish("tv/{}".format(tv_number if tv_number != "ALL" else "ALL"), "av")
+        mqttc.publish(prefix_topic.format(tv_number if tv_number != "all" else "all"), "av")
 
 
 if __name__ == '__main__':
     mqttc = Client()
+    # set username and password
+    mqttc.username_pw_set("<username>", "<password>")
     mqttc.connect(mqtt_host, 1883, 60)
     execute_command()
